@@ -1,0 +1,91 @@
+---
+title: "Knapsack pakage"
+author: "Somaya and Thi"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Knapsack package
+
+This package is created to study the effects of algorithms with different computinal complexity. This package contains three different functions for solving **knapsack** problem.
+
+
+## How to install and load
+
+### Install 
+
+To install the package [devtools] in [RStudio](https://www.rstudio.com/), you can just run the following command
+```{r, eval = FALSE}
+install.packages("devtools")
+```
+
+
+After the installation of `devtools`, we can simply run the following command in the RStudio console
+```{r, eval = FALSE}
+devtools::install_github(repo = "thiph169/ARP-lab-6/", 
+                         build_vignette = TRUE)
+```
+
+### Load
+
+After the installation is successful, we want to load the package using
+
+```{r}
+library(knapsack)
+```
+
+
+## Knapsack
+
+The first step is to create a list of items with values and weights.  
+
+```{r}
+set.seed(42)
+n <- 2000
+knapsack_objects <-
+data.frame(
+w=sample(1:4000, size = n, replace = TRUE),
+v=runif(n = n, 0, 10000)
+)
+```
+
+This can then be used within the other functions.
+
+
+##Brute Force search
+
+The `brute_force_knapsack` function analyzes every possible combination and therefore always returns the maximum possible value for the knapsack. 
+
+The `brute_force_knapsack` function is used by inputting the list of objects and the total weight the knapsack can carry. It can be seen in the following example:
+
+```{r}
+brute_force_knapsack(x = knapsack_objects[1:8,], W = 3500)
+```
+
+
+##Dynamic Programming
+
+The `dynamic_knapsack` assumes discrete values for the item weights. It iterates over all possible values of \code{w} (weight). It returns the same results as `knapsack_brute_force` but is more efficient.
+
+The `dynamic_knapsack` function is used by inputting the list of objects and the total weight the knapsack can carry. It can be seen in the following example:
+
+```{r}
+
+knapsack_dynamic(x = knapsack_objects[1:8,], W = 3500)
+```
+
+
+##Greedy Heuristic
+
+The `greedy_knapsack` function uses an approximation that will not necessarily give the exact result, but will drastically reduce the processing time and load as compared to the previous methods.
+
+The `greedy_knapsack` function is used by inputting the list of objects and the total weight the knapsack can carry. It can be seen in the following example:
+
+```{r}
+greedy_knapsack(x = knapsack_objects[1:800,], W = 3500)
+```
+
